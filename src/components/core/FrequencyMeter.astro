@@ -1,0 +1,64 @@
+---
+interface Props {
+  currentFreq?: number;
+}
+
+const { currentFreq = 165 } = Astro.props;
+---
+
+<div class="w-full max-w-xl mx-auto mt-6 p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60 flex flex-col items-center">
+  <div class="flex items-center justify-between w-full text-xs text-slate-400 mb-2 px-1">
+    <span class="flex items-center gap-1.5 font-medium">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      Acoustic Output Spectrum
+    </span>
+    <span class="font-mono text-slate-500" id="meter-hz-display">{currentFreq} Hz</span>
+  </div>
+
+  <!-- Audio Wave Bars -->
+  <div id="wave-bars-container" class="w-full h-12 flex items-end justify-center gap-1 sm:gap-1.5 px-2 overflow-hidden">
+    {Array.from({ length: 28 }).map((_, i) => (
+      <div
+        class="wave-bar flex-1 bg-slate-800 rounded-t transition-all duration-75 min-h-[4px]"
+        data-index={i}
+      />
+    ))}
+  </div>
+</div>
+
+<script>
+  import { cleanerEngine } from '@/lib/audio/generator';
+
+  const bars = document.querySelectorAll<HTMLDivElement>('.wave-bar');
+  let animationId: number | null = null;
+
+  function animateBars() {
+    const isPlaying = cleanerEngine.getStatus();
+
+    bars.forEach((bar, idx) => {
+      if (isPlaying) {
+        // Generate pseudo-waveform oscillation based on index and time
+        const time = Date.now() * 0.008;
+        const offset = idx * 0.35;
+        const heightPercent = Math.max(10, Math.min(95, Math.sin(time + offset) * 45 + 50));
+        
+        bar.style.height = `${heightPercent}%`;
+        bar.classList.add('bg-sky-400');
+        bar.classList.remove('bg-slate-800');
+      } else {
+        bar.style.height = '6px';
+        bar.classList.remove('bg-sky-400');
+        bar.classList.add('bg-slate-800');
+      }
+    });
+
+    animationId = requestAnimationFrame(animateBars);
+  }
+
+  // Start frame loop
+  animateBars();
+
+  window.addEventListener('beforeunload', () => {
+    if (animationId) cancelAnimationFrame(animationId);
+  });
+</script>

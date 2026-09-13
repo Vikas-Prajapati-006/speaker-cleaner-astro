@@ -1,0 +1,33 @@
+{
+  "brand": "OnePlus",
+  "brandSlug": "oneplus",
+  "models": [
+    {
+      "name": "OnePlus 12",
+      "slug": "oneplus-12",
+      "releaseYear": 2024,
+      "ipRating": "IP65",
+      "speakerSetup": "Dual stereo speakers with Dolby Atmos and spatial audio",
+      "recommendedFrequency": 168,
+      "waterProofingLimits": "Certified IP65 water spray and splash resistant. Not submersible; liquid easily settles across speaker mesh.",
+      "commonIssues": [
+        "Muffled bottom loudspeaker after rain exposure",
+        "Vibrational distortion on incoming ringtones",
+        "Moisture retention behind micro-laser grills"
+      ]
+    },
+    {
+      "name": "OnePlus Nord 3",
+      "slug": "oneplus-nord-3",
+      "releaseYear": 2023,
+      "ipRating": "IP54",
+      "speakerSetup": "Dual stereo speaker configuration with Dirac audio tuning",
+      "recommendedFrequency": 160,
+      "waterProofingLimits": "IP54 splash proof only. Requires immediate acoustic evacuation when exposed to liquids.",
+      "commonIssues": [
+        "Trapped moisture causing volume drop",
+        "Harsh high frequencies due to wet diaphragm mass"
+      ]
+    }
+  ]
+}

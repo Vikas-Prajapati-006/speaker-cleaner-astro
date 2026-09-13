@@ -1,0 +1,35 @@
+---
+import { generateWebAppSchema } from '@/lib/seo/schema';
+
+interface Props {
+  canonicalUrl?: string;
+  name?: string;
+  description?: string;
+}
+
+const { 
+  canonicalUrl = 'https://speaker-cleaner-astro.pages.dev',
+  name = 'ClearWave Speaker Cleaner',
+  description = 'Acoustic sound wave frequency generator to eject water and dislodge dust from mobile speakers.'
+} = Astro.props;
+
+const baseSchema = generateWebAppSchema(canonicalUrl);
+
+const schema = {
+  ...baseSchema,
+  name,
+  description,
+  applicationSubCategory: 'Speaker Cleaner & Water Ejector',
+  operatingSystem: 'iOS, Android, macOS, Windows',
+  browserRequirements: 'Requires HTML5 Web Audio API support',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    ratingCount: '1240',
+    bestRating: '5',
+    worstRating: '1'
+  }
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

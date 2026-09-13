@@ -1,0 +1,32 @@
+{
+  "brand": "Xiaomi",
+  "brandSlug": "xiaomi",
+  "models": [
+    {
+      "name": "Xiaomi 14 Pro",
+      "slug": "xiaomi-14-pro",
+      "releaseYear": 2023,
+      "ipRating": "IP68",
+      "speakerSetup": "Independent dual stereo symmetrically balanced speakers",
+      "recommendedFrequency": 165,
+      "waterProofingLimits": "Protected up to 1.5 meters in freshwater. Liquid creates acoustic barrier over precision laser-drilled grills.",
+      "commonIssues": [
+        "Severely muffled dual output after rain exposure",
+        "Trapped moisture across both top and bottom speaker arrays"
+      ]
+    },
+    {
+      "name": "Redmi Note 13 Pro+",
+      "slug": "redmi-note-13-pro-plus",
+      "releaseYear": 2024,
+      "ipRating": "IP68",
+      "speakerSetup": "Dual stereo speakers with high-res audio certification",
+      "recommendedFrequency": 168,
+      "waterProofingLimits": "Certified IP68 resistance against direct splash and short immersion.",
+      "commonIssues": [
+        "Low call receiver volume caused by moisture film",
+        "Grill buzzing at high volumes before complete drying"
+      ]
+    }
+  ]
+}

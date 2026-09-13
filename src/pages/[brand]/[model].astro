@@ -1,0 +1,65 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const devices = await getCollection('devices');
+
+  return devices.flatMap((entry) => {
+    return entry.data.models.map((model) => ({
+      params: {
+        brand: entry.data.brandSlug,
+        model: model.slug,
+      },
+      props: {
+        device: model,
+        brandName: entry.data.brand,
+        brandSlug: entry.data.brandSlug,
+      },
+    }));
+  });
+}
+
+const { device, brandName, brandSlug } = Astro.props;
+
+const breadcrumbs = [
+  { name: brandName, url: `/${brandSlug}` },
+  { name: device.name, url: `/${brandSlug}/${device.slug}` },
+];
+
+const faqs = [
+  {
+    question: `Why is the recommended frequency ${device.recommendedFrequency} Hz for ${device.name}?`,
+    answer: `The acoustic chamber and mesh density of the ${device.name} (${device.speakerSetup}) reach optimal kinetic displacement at ${device.recommendedFrequency} Hz, ejecting liquid without tearing delicate membranes.`,
+  },
+  {
+    question: `Does running this void my ${brandName} warranty?`,
+    answer: `No. Playing clean acoustic frequencies through standard browser audio operates entirely within safe factory speaker limits.`,
+  },
+  {
+    question: `What if water remains in my ${device.name} after 3 cycles?`,
+    answer: `If sound stays muffled, keep the phone tilted downward in a warm, dry spot with airflow for 2–3 hours. Never apply external heat guns or hair dryers.`,
+  },
+];
+---
+
+<ToolLayout
+  breadcrumbs={breadcrumbs}
+  device={device}
+  brandName={brandName}
+  brandSlug={brandSlug}
+  faqs={faqs}
+  seo={{
+    title: `Eject Water from ${device.name} Speaker (${device.recommendedFrequency}Hz Tone)`,
+    description: `Clear muffled sound and safely remove trapped water from ${device.name}. Uses tested ${device.recommendedFrequency}Hz resonance waves.`,
+    canonical: `/${brandSlug}/${device.slug}`,
+  }}
+>
+  <section class="mt-12 bg-slate-900/30 border border-slate-800 rounded-2xl p-6">
+    <h2 class="text-base font-bold text-slate-100 mb-3">Model Specific Maintenance Notes</h2>
+    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+      The {device.name} features an ingress rating of <strong class="text-slate-200">{device.ipRating}</strong>. 
+      While water resistant, lingering liquid inside the acoustic channels will reduce call audibility and distort audio until physically vibrated out. Run the sound engine until sound clarity normalizes.
+    </p>
+  </section>
+</ToolLayout>

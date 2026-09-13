@@ -1,0 +1,58 @@
+---
+interface Props {
+  deviceType?: string;
+}
+
+const { deviceType = 'phone' } = Astro.props;
+
+const steps = [
+  {
+    number: '01',
+    title: 'Maximize Device Volume',
+    desc: 'Turn your system volume all the way up to 100%. The sound waves require maximum speaker diaphragm excursion to push out moisture.',
+    icon: '🔊'
+  },
+  {
+    number: '02',
+    title: 'Orient Speaker Facing Down',
+    desc: `Position your ${deviceType} with the speaker ports tilted downward toward a clean cloth so gravity assists the water expulsion.`,
+    icon: '📱'
+  },
+  {
+    number: '03',
+    title: 'Run 2–3 Full Cycles',
+    desc: 'Keep the tone running for 60 to 90 seconds. You will notice small moisture droplets or dust being dislodged from the grill.',
+    icon: '⏱️'
+  },
+  {
+    number: '04',
+    title: 'Absorb & Dry',
+    desc: 'Gently dab the dislodged droplets with an absorbent microfiber cloth. Never insert toothpicks, cotton swabs, or pins into the speaker mesh.',
+    icon: '✨'
+  }
+];
+---
+
+<section class="mt-12">
+  <div class="text-center mb-8">
+    <h2 class="text-2xl font-bold text-white tracking-tight">How to Eject Water Effectively</h2>
+    <p class="text-sm text-slate-400 mt-1">Follow these physical guidelines alongside acoustic resonance for best results.</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {steps.map((step) => (
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 flex flex-col justify-between hover:border-slate-700 transition">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">{step.icon}</span>
+            <span class="font-mono text-xs font-bold text-sky-400 bg-sky-950/60 border border-sky-800/50 px-2 py-0.5 rounded">
+              STEP {step.number}
+            </span>
+          </div>
+          <h3 class="text-base font-semibold text-slate-100 mb-2">{step.title}</h3>
+          <p class="text-xs leading-relaxed text-slate-400">{step.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

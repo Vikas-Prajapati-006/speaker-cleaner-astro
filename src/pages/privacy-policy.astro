@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/seo/Breadcrumb.astro';
+
+const breadcrumbs = [
+  { name: 'Privacy Policy', url: '/privacy-policy' }
+];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Privacy Policy & Zero Telemetry Standard | ClearWave',
+    description: 'ClearWave privacy policy. Understand our client-side Web Audio API execution and zero-data-collection security architecture.',
+    canonical: '/privacy-policy'
+  }}
+>
+  <div class="max-w-3xl mx-auto py-6">
+    <Breadcrumb items={breadcrumbs} />
+
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-white tracking-tight">Privacy Policy</h1>
+      <p class="text-xs text-slate-500 mt-1">Last Updated: September 2026</p>
+    </header>
+
+    <div class="space-y-6 text-sm text-slate-300 leading-relaxed">
+      
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">1. 100% Client-Side Web Audio Processing</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          ClearWave synthesizes sound oscillation frequencies entirely on your local device browser utilizing the standardized HTML5 Web Audio API. Our web application operates without recording, monitoring, capturing, or streaming data from your device microphone, camera, storage volumes, or onboard sensors. Zero audio frames ever leave your client hardware.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">2. Zero Personal Identifiable Information (PII)</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          We maintain a zero-registration, zero-profile policy. ClearWave does not request, log, or store names, email addresses, contact lists, GPS locations, hardware IMEI numbers, or unique phone identifiers.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">3. Stateless Edge Network Diagnostics</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Static asset delivery is hosted across globally distributed Content Delivery Networks (Cloudflare Edge). Standard HTTP communication logs anonymized metadata (user-agent strings, referring URLs, anonymized IP subnets) strictly for network load distribution, caching efficiency, and anti-DDoS integrity without building user behavioral profiles.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">4. Third-Party Analytics & Web Monetization</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          To sustain free access to this tool, ClearWave may deploy privacy-preserving telemetry (such as Cloudflare Web Analytics) or certified advertising vendors (such as Google AdSense). These third-party services may use cookies or pseudonymous identifiers to track aggregate impressions in accordance with their respective compliance policies.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">5. International Regulatory Compliance (GDPR, CCPA, DPDP)</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Because ClearWave does not harvest personal records, track across third-party websites, or trade behavioral datasets, this platform adheres to the General Data Protection Regulation (GDPR), California Consumer Privacy Act (CCPA/CPRA), and India's Digital Personal Data Protection Act (DPDP). We do not sell or rent visitor data to data brokers under any condition.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">6. Privacy & Legal Contact</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          For legal inquiries, copyright notices, or privacy policy questions, submit correspondence to our administrative operations channel at: <span class="text-sky-400 font-mono">support@clearwave.pages.dev</span>.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>

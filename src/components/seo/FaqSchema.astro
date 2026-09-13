@@ -1,0 +1,12 @@
+---
+import { generateFAQSchema, type FAQItem } from '@/lib/seo/schema';
+
+interface Props {
+  faqs: FAQItem[];
+}
+
+const { faqs } = Astro.props;
+const schemaData = generateFAQSchema(faqs);
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />

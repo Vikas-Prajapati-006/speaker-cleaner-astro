@@ -1,0 +1,47 @@
+{
+  "brand": "Apple",
+  "brandSlug": "apple",
+  "models": [
+    {
+      "name": "iPhone 15 Pro Max",
+      "slug": "iphone-15-pro-max",
+      "releaseYear": 2023,
+      "ipRating": "IP68 (6 meters up to 30 mins)",
+      "speakerSetup": "Stereo (bottom-firing ported speaker + top earpiece chamber)",
+      "recommendedFrequency": 165,
+      "waterProofingLimits": "Resistant to everyday splashes, fresh water submersion up to 6 meters. Salt water corrodes mesh adhesives quickly.",
+      "commonIssues": [
+        "Muffled top earpiece sound after rain exposure",
+        "Distorted bass response from wet bottom mesh",
+        "False liquid detected warning inside USB-C socket"
+      ]
+    },
+    {
+      "name": "iPhone 14",
+      "slug": "iphone-14",
+      "releaseYear": 2022,
+      "ipRating": "IP68 (6 meters up to 30 mins)",
+      "speakerSetup": "Stereo (downward acoustic port + upper transducer)",
+      "recommendedFrequency": 165,
+      "waterProofingLimits": "Rated for accidental shallow immersion. Water surface tension clogs micro-holes in lower grille.",
+      "commonIssues": [
+        "Low call speaker clarity",
+        "Buzzing noise during speakerphone calls",
+        "Water trapped by hydrophobic surface tension"
+      ]
+    },
+    {
+      "name": "Apple Watch Ultra 2",
+      "slug": "apple-watch-ultra-2",
+      "releaseYear": 2023,
+      "ipRating": "WR100 / IP6X (100 meters dive rating)",
+      "speakerSetup": "Dual speakers with built-in acoustic siren transducer",
+      "recommendedFrequency": 185,
+      "waterProofingLimits": "High-velocity water sports certified. Requires acoustic pulse expulsion after seawater swimming.",
+      "commonIssues": [
+        "Muffled Siri audio feedback",
+        "Trapped saltwater residue causing speaker grill calcification"
+      ]
+    }
+  ]
+}

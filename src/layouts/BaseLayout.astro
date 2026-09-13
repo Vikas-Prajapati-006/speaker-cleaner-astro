@@ -1,0 +1,56 @@
+---
+import { createSEO, type MetaProps } from '@/lib/seo/meta';
+import { generateWebAppSchema } from '@/lib/seo/schema';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+
+interface Props {
+  seo?: MetaProps;
+  jsonLd?: Record<string, any>;
+}
+
+const { seo: seoOverrides, jsonLd } = Astro.props;
+const seo = createSEO(seoOverrides);
+const webAppSchema = generateWebAppSchema(seo.canonical);
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <link rel="canonical" href={seo.canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={seo.openGraph.type} />
+    <meta property="og:url" content={seo.openGraph.url} />
+    <meta property="og:title" content={seo.openGraph.title} />
+    <meta property="og:description" content={seo.openGraph.description} />
+    <meta property="og:image" content={seo.openGraph.images[0].url} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content={seo.twitter.card} />
+    <meta property="twitter:title" content={seo.twitter.title} />
+    <meta property="twitter:description" content={seo.twitter.description} />
+    <meta property="twitter:image" content={seo.twitter.image} />
+
+    <!-- Structured Data -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(webAppSchema)} />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+    <Header />
+
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

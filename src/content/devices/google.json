@@ -1,0 +1,33 @@
+{
+  "brand": "Google",
+  "brandSlug": "google",
+  "models": [
+    {
+      "name": "Google Pixel 8 Pro",
+      "slug": "pixel-8-pro",
+      "releaseYear": 2023,
+      "ipRating": "IP68",
+      "speakerSetup": "Stereo spatial audio array with earpiece and bottom port",
+      "recommendedFrequency": 165,
+      "waterProofingLimits": "Rated IP68 under IEC standard 60529 (up to 1.5 meters for 30 minutes). Surface tension traps water droplets inside the bottom slit grill.",
+      "commonIssues": [
+        "Muffled voice assistant output after moisture contact",
+        "Crackling sound on bass-heavy frequencies",
+        "Thin liquid film blocking bottom speaker membrane"
+      ]
+    },
+    {
+      "name": "Google Pixel 7a",
+      "slug": "pixel-7a",
+      "releaseYear": 2023,
+      "ipRating": "IP67",
+      "speakerSetup": "Dual stereo speakers with bottom acoustic cutout",
+      "recommendedFrequency": 172,
+      "waterProofingLimits": "Rated IP67 fresh water resistant up to 1 meter for 30 minutes. Acoustic grill cavities require active kinetic vibration to evacuate residual water.",
+      "commonIssues": [
+        "Low call receiver audibility",
+        "Buzzing noise until membrane completely dries"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# Dependencies (pip install / node_modules jaisa)
+node_modules/
+
+# Build outputs (Compiled HTML files)
+dist/
+.astro/
+
+# Environment secrets
+.env
+.env.production
+.env.local
+
+# OS system files
+.DS_Store
+Thumbs.db
+npm-debug.log*

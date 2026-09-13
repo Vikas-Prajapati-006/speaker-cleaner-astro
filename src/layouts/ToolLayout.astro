@@ -1,0 +1,109 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb, { type BreadcrumbItem } from '../components/seo/Breadcrumb.astro';
+import AudioEngine from '../components/core/AudioEngine.astro';
+import FrequencyMeter from '../components/core/FrequencyMeter.astro';
+import StepGuide from '../components/core/StepGuide.astro';
+import FaqSchema from '../components/seo/FaqSchema.astro';
+import SoftwareSchema from '../components/seo/SoftwareSchema.astro';
+import type { MetaProps } from '../lib/seo/meta';
+import type { FAQItem } from '../lib/seo/schema';
+
+interface DeviceData {
+  name: string;
+  releaseYear: number;
+  ipRating: string;
+  speakerSetup: string;
+  recommendedFrequency: number;
+  waterProofingLimits: string;
+  commonIssues: string[];
+}
+
+interface Props {
+  seo?: MetaProps;
+  breadcrumbs: BreadcrumbItem[];
+  device?: DeviceData;
+  brandName?: string;
+  brandSlug?: string;
+  faqs?: FAQItem[];
+}
+
+const { seo, breadcrumbs, device, faqs } = Astro.props;
+---
+
+<BaseLayout seo={seo}>
+  <div class="max-w-4xl mx-auto">
+    <Breadcrumb items={breadcrumbs} />
+
+    <!-- Hero Title Header -->
+    <header class="text-center my-8">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        {device ? `Eject Water from ${device.name}` : 'ClearWave Speaker Cleaner'}
+      </h1>
+      <p class="mt-3 text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+        {device 
+          ? `Dislodge trapped water droplets and moisture from your ${device.name}'s acoustic chambers using tuned ${device.recommendedFrequency} Hz sound waves.`
+          : 'Scientific acoustic tone sweep to clean muffled smartphone and smartwatch speakers.'}
+      </p>
+    </header>
+
+    <!-- Interactive Sound Generator -->
+    <section class="my-8">
+      <AudioEngine 
+        initialFrequency={device?.recommendedFrequency ?? 165} 
+        modelName={device?.name} 
+      />
+      <FrequencyMeter currentFreq={device?.recommendedFrequency ?? 165} />
+    </section>
+
+    <!-- Device Technical Specs Card (Conditional) -->
+    {device && (
+      <section class="my-10 bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <span>🛠️</span> {device.name} Acoustic & Ingress Profile
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+          <div class="p-3.5 bg-slate-950/50 rounded-xl border border-slate-850">
+            <span class="text-slate-500 block mb-1 text-xs">Official Water Resistance</span>
+            <span class="font-semibold text-slate-200">{device.ipRating}</span>
+          </div>
+
+          <div class="p-3.5 bg-slate-950/50 rounded-xl border border-slate-850">
+            <span class="text-slate-500 block mb-1 text-xs">Acoustic Architecture</span>
+            <span class="font-semibold text-slate-200">{device.speakerSetup}</span>
+          </div>
+
+          <div class="p-3.5 bg-slate-950/50 rounded-xl border border-slate-850 sm:col-span-2">
+            <span class="text-slate-500 block mb-1 text-xs">Hydrophobic Enclosure Limits</span>
+            <p class="text-slate-300 leading-relaxed">{device.waterProofingLimits}</p>
+          </div>
+        </div>
+
+        {device.commonIssues.length > 0 && (
+          <div class="mt-4 pt-4 border-t border-slate-850">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-2">Known Symptoms</span>
+            <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm text-slate-400">
+              {device.commonIssues.map((issue) => (
+                <li>{issue}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- Step Guide -->
+    <StepGuide deviceType={device ? device.name : 'device'} />
+
+    <!-- Slot for Page Specific Content -->
+    <slot />
+  </div>
+
+  <!-- Schema injections -->
+  {faqs && faqs.length > 0 && <FaqSchema faqs={faqs} />}
+  <SoftwareSchema 
+    name={device ? `ClearWave Water Ejector for ${device.name}` : undefined}
+    description={device ? `Acoustic frequency water ejection for ${device.name}` : undefined}
+  />
+</BaseLayout>

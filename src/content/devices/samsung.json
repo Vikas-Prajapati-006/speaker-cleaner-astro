@@ -1,0 +1,46 @@
+{
+  "brand": "Samsung",
+  "brandSlug": "samsung",
+  "models": [
+    {
+      "name": "Samsung Galaxy S24 Ultra",
+      "slug": "galaxy-s24-ultra",
+      "releaseYear": 2024,
+      "ipRating": "IP68",
+      "speakerSetup": "Stereo bottom port and earpiece acoustic resonator",
+      "recommendedFrequency": 165,
+      "waterProofingLimits": "Submersible up to 1.5 meters of freshwater for up to 30 minutes. Acoustic mesh blocks liquid, but high surface tension traps water drops in the lower grill slot.",
+      "commonIssues": [
+        "Muffled call speaker volume after handwashing",
+        "Buzzing or crackling bass on media playback",
+        "Moisture detected notification triggering false alarms in USB-C port area"
+      ]
+    },
+    {
+      "name": "Samsung Galaxy S23",
+      "slug": "galaxy-s23",
+      "releaseYear": 2023,
+      "ipRating": "IP68",
+      "speakerSetup": "Dual stereo speakers with Dolby Atmos tuning",
+      "recommendedFrequency": 170,
+      "waterProofingLimits": "Rated IP68 freshwater resistance. Chlorine and salt water cause accelerated seal corrosion.",
+      "commonIssues": [
+        "Water droplet lock in narrow bottom speaker slit",
+        "Distorted top earpiece output during phone calls"
+      ]
+    },
+    {
+      "name": "Samsung Galaxy A54 5G",
+      "slug": "galaxy-a54-5g",
+      "releaseYear": 2023,
+      "ipRating": "IP67",
+      "speakerSetup": "Hybrid stereo speaker setup",
+      "recommendedFrequency": 160,
+      "waterProofingLimits": "Submersible up to 1 meter for up to 30 minutes. Splash resistant.",
+      "commonIssues": [
+        "Water retention in lower chassis speaker cavities",
+        "Metallic resonance distortion until membrane dries"
+      ]
+    }
+  ]
+}

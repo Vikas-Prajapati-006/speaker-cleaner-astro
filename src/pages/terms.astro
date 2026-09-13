@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/seo/Breadcrumb.astro';
+
+const breadcrumbs = [
+  { name: 'Terms of Use', url: '/terms' }
+];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Terms of Use & Hardware Liability Shield | ClearWave',
+    description: 'Terms of use, acoustic volume safety, hardware liability waivers, and strict limitation of liability for ClearWave.',
+    canonical: '/terms'
+  }}
+>
+  <div class="max-w-3xl mx-auto py-6">
+    <Breadcrumb items={breadcrumbs} />
+
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-white tracking-tight">Terms of Use & Liability Shield</h1>
+      <p class="text-xs text-slate-500 mt-1">Last Updated: September 2026</p>
+    </header>
+
+    <div class="space-y-6 text-sm text-slate-300 leading-relaxed">
+      
+      <!-- Crucial Protection Banner -->
+      <section class="bg-rose-950/30 border border-rose-600/40 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-rose-300 mb-2 uppercase tracking-wide">1. Absolute Pre-Existing Damage Doctrine</h2>
+        <p class="text-xs sm:text-sm text-rose-200/90 leading-relaxed">
+          By utilizing this utility, you acknowledge and agree that any liquid ingress, physical submersion, acoustic degradation, membrane dampening, or dust obstruction occurred entirely prior to and independent of visiting this website. ClearWave does not cause hardware failure, voice coil burnout, adhesive degradation, or short-circuits. You execute tone generation solely at your own voluntary discretion.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">2. "AS-IS" Provision & No Restoration Guarantee</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          ClearWave provides audio oscillation frequencies strictly on an "AS-IS" and "AS-AVAILABLE" basis without warranties of any kind, whether express, implied, statutory, or otherwise. We provide zero guarantee that acoustic resonance will dry, dislodge, repair, or restore any speaker chamber, microphone mesh, or wearable transducer.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">3. Total Limitation of Liability ($0.00 USD / ₹0.00 INR Cap)</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          To the maximum extent permitted by applicable law across all domestic and international jurisdictions, neither ClearWave, its authors, operators, hosting infrastructure, nor content contributors shall be held liable for any direct, indirect, incidental, consequential, punitive, or special damages. This includes, without limitation: hardware component replacement, speaker diaphragm tears, motherboard corrosion, data loss, technician diagnostic costs, or manufacturer warranty voids (such as triggered Apple/Samsung Liquid Contact Indicators). Under no circumstances shall aggregate legal liability exceed Zero Dollars ($0.00 USD) or Zero Indian Rupees (₹0.00 INR).
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">4. Auditory Proximity & Physical Safety</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Our tool triggers high-amplitude acoustic frequencies designed to vibrate physical speaker diaphragms. Never place the device directly against human ears, infant auditory zones, or close to domestic pets while volume cycles are operating. Maintain device speaker ports facing downward over a safe, dry microfiber surface.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">5. Nominative Fair Use of Brand Trademarks</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Device trademarks, brand names, and model designations (including Apple, iPhone, Apple Watch, Samsung Galaxy, Xiaomi, Redmi, Google Pixel, OnePlus) referenced across this site belong solely to their respective copyright holders. Their mention on ClearWave is exclusively nominative, descriptive, and intended for frequency calibration context under standard Fair Use doctrines. ClearWave is not affiliated with, authorized, or endorsed by any OEM manufacturer.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">6. User Indemnification</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          You agree to indemnify, defend, and hold harmless ClearWave, its operators, and infrastructure partners from any third-party claims, legal actions, damages, liabilities, and legal expenses arising from your operation of acoustic tone tools on any consumer hardware.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>

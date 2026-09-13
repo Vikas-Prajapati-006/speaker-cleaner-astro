@@ -1,0 +1,77 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+import { getCollection } from 'astro:content';
+
+const deviceCollections = await getCollection('devices');
+
+const faqs = [
+  {
+    question: 'How does acoustic sound eject water from speakers?',
+    answer: 'The tool generates a precise 165 Hz resonant sound wave coupled with a kinetic square-pulse rhythm. This forces the speaker diaphragm to its maximum displacement, breaking the surface tension of water droplets and ejecting them through the speaker grill.'
+  },
+  {
+    question: 'Is it safe to run at 100% volume?',
+    answer: 'Yes. Modern smartphones are designed to handle full audio output within safe thermal and acoustic thresholds. However, keep the phone away from your ears while running the tone.'
+  },
+  {
+    question: 'How many cycles should I run?',
+    answer: 'Run 2 to 3 consecutive cycles (around 60 seconds each). If the sound remains muffled, dry the exterior mesh with a microfiber cloth and run one additional cycle.'
+  }
+];
+---
+
+<ToolLayout
+  breadcrumbs={[]}
+  faqs={faqs}
+  seo={{
+    title: 'Fix My Speakers & Eject Water Instantly',
+    description: 'Universal speaker cleaner using tuned 165Hz kinetic sound waves to expel trapped water and dust from smartphone speakers.',
+    canonical: '/'
+  }}
+>
+  <!-- Device Brands Directory Section -->
+  <section class="mt-14 pt-10 border-t border-slate-850">
+    <div class="text-center mb-6">
+      <h2 class="text-xl font-bold text-white tracking-tight">Select Device for Tuned Resonant Cleaning</h2>
+      <p class="text-xs text-slate-400 mt-1">Every phone model has distinct acoustic chamber dimensions and mesh tension.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {deviceCollections.map((entry) => (
+        <a
+          href={`/${entry.data.brandSlug}`}
+          class="p-4 bg-slate-900/40 border border-slate-800 rounded-2xl hover:border-sky-500/40 hover:bg-slate-900/80 transition flex items-center justify-between group"
+        >
+          <div>
+            <span class="text-sm font-semibold text-slate-200 group-hover:text-sky-400 transition">
+              {entry.data.brand}
+            </span>
+            <span class="block text-[11px] text-slate-500 mt-0.5">
+              {entry.data.models.length} Optimized Profiles
+            </span>
+          </div>
+          <span class="text-slate-600 group-hover:text-sky-400 group-hover:translate-x-1 transition text-sm">
+            →
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="mt-14 pt-10 border-t border-slate-850">
+    <div class="text-center mb-8">
+      <h2 class="text-xl font-bold text-white tracking-tight">Frequently Asked Questions</h2>
+      <p class="text-xs text-slate-400 mt-1">Everything you need to know about acoustic water ejection.</p>
+    </div>
+
+    <div class="space-y-4 max-w-3xl mx-auto">
+      {faqs.map((faq) => (
+        <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-850">
+          <h3 class="text-sm font-semibold text-slate-200 mb-1.5">{faq.question}</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">{faq.answer}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</ToolLayout>

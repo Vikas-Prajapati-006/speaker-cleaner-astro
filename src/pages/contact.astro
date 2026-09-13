@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '@/components/seo/Breadcrumb.astro';
+
+const breadcrumbs = [
+  { name: 'Contact & Support', url: '/contact' }
+];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Contact & Support | ClearWave Speaker Cleaner',
+    description: 'Contact ClearWave for acoustic calibration feedback, smartphone model requests, and technical support.',
+    canonical: '/contact'
+  }}
+>
+  <div class="max-w-3xl mx-auto py-6">
+    <Breadcrumb items={breadcrumbs} />
+
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-white tracking-tight">Contact ClearWave</h1>
+      <p class="text-xs text-slate-500 mt-1">Direct Support & Acoustic Calibration Inquiries</p>
+    </header>
+
+    <div class="space-y-6 text-sm text-slate-300 leading-relaxed">
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">1. Request a Phone Model Profile</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          If your smartphone or wearable is missing from our catalog, send us your device brand, exact model name, and release year. Our audio engineers evaluate acoustic chamber specs and publish dedicated resonant frequencies.
+        </p>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">2. Direct Technical Support</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mb-4 leading-relaxed">
+          For technical issues, feedback, or legal inquiries, reach out to our web operations team directly:
+        </p>
+        <a 
+          href="mailto:support@clearwave.pages.dev" 
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 text-slate-950 font-bold text-xs sm:text-sm hover:bg-sky-400 transition"
+        >
+          <span>✉️</span> support@clearwave.pages.dev
+        </a>
+      </section>
+
+      <section class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
+        <h2 class="text-base font-semibold text-white mb-2">3. Hardware Damage Notice</h2>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          ClearWave generates acoustic vibration to dislodge surface water from speaker grills. If your device has suffered extensive internal immersion, liquid short-circuits, or motherboard corrosion, power it down immediately and take it to an authorized OEM repair center.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,315 @@
+---
+interface Props {
+  initialFrequency?: number;
+  modelName?: string;
+}
+
+const { initialFrequency = 165, modelName } = Astro.props;
+---
+
+<div class="w-full max-w-xl mx-auto p-6 sm:p-8 bg-slate-900/90 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+  <!-- Dynamic acoustic pulse rings -->
+  <div id="pulse-rings" class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
+    <div class="w-48 h-48 rounded-full border border-sky-400/30 animate-wave-ping"></div>
+    <div class="w-64 h-64 rounded-full border border-sky-500/20 animate-pulse-slow"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col items-center text-center">
+    {modelName && (
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20 mb-3">
+        Optimized for {modelName}
+      </span>
+    )}
+
+    <!-- Water vs Dust Cleaning Mode Tabs -->
+    <div class="inline-flex p-1 bg-slate-950/80 border border-slate-800 rounded-xl mb-3">
+      <button
+        id="mode-water"
+        type="button"
+        class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 bg-sky-500 text-slate-950 shadow-sm cursor-pointer"
+      >
+        <span>💧</span> Water Eject
+      </button>
+      <button
+        id="mode-dust"
+        type="button"
+        class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5 cursor-pointer"
+      >
+        <span>🌪️</span> Dust Clear
+      </button>
+    </div>
+
+    <!-- Stereo Channel Selector -->
+    <div class="inline-flex p-1 bg-slate-950/60 border border-slate-800/80 rounded-lg text-[11px] mb-3">
+      <button id="chan-both" type="button" class="px-2.5 py-1 rounded-md font-semibold bg-slate-800 text-sky-400 transition cursor-pointer">
+        Both Speakers
+      </button>
+      <button id="chan-bottom" type="button" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-slate-200 transition cursor-pointer">
+        Bottom Grill
+      </button>
+      <button id="chan-top" type="button" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-slate-200 transition cursor-pointer">
+        Top Earpiece
+      </button>
+    </div>
+
+    <!-- Countdown Timer Pill -->
+    <div id="timer-badge" style="display: none;" class="items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30 mb-3">
+      <span>Auto-Stopping in:</span>
+      <span id="timer-countdown">01:00</span>
+    </div>
+
+    <!-- Main Trigger Button -->
+    <button
+      id="engine-trigger"
+      data-frequency={initialFrequency}
+      class="w-36 h-36 rounded-full bg-gradient-to-tr from-sky-600 to-sky-400 text-white shadow-lg shadow-sky-500/30 flex flex-col items-center justify-center gap-1 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-4 focus:ring-sky-500/40"
+      aria-label="Toggle speaker cleaning resonance tone"
+    >
+      <span id="trigger-icon" class="text-4xl">🔊</span>
+      <span id="trigger-label" class="text-xs font-bold uppercase tracking-wider">Clean Speaker</span>
+    </button>
+
+    <!-- Max Volume Guidance Banner -->
+    <p class="text-[11px] text-amber-400/90 mt-3 flex items-center gap-1 font-medium">
+      <span>⚠️</span> Turn physical phone volume to 100% for maximum kinetic push.
+    </p>
+
+    <!-- Notification Toast -->
+    <div id="cycle-toast" style="display: none;" class="mt-4 p-3 bg-emerald-950/80 border border-emerald-600/40 rounded-xl text-emerald-300 text-xs font-medium">
+      ✨ 60s Cycle Complete! Pat speaker dry with a microfiber cloth.
+    </div>
+
+    <!-- Frequency Indicator & Manual Controls -->
+    <div class="mt-8 w-full max-w-sm">
+      <div class="flex justify-between items-center text-sm font-medium mb-2">
+        <span id="freq-type-label" class="text-slate-400">Target Frequency (Water Expulsion)</span>
+        <span class="text-sky-400 font-mono font-bold text-base">
+          <span id="freq-display">{initialFrequency}</span> Hz
+        </span>
+      </div>
+
+      <input
+        type="range"
+        id="freq-slider"
+        min="130"
+        max="220"
+        step="1"
+        value={initialFrequency}
+        class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500 focus:outline-none"
+      />
+
+      <div class="flex justify-between text-[11px] text-slate-500 mt-1 font-mono">
+        <span id="freq-min-label">130 Hz (Deep Bass)</span>
+        <span id="freq-mid-label">165 Hz (Optimal Eject)</span>
+        <span id="freq-max-label">220 Hz (High Ingress)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { cleanerEngine } from '@/lib/audio/generator';
+
+  const trigger = document.getElementById('engine-trigger') as HTMLButtonElement | null;
+  const triggerIcon = document.getElementById('trigger-icon');
+  const triggerLabel = document.getElementById('trigger-label');
+  const pulseRings = document.getElementById('pulse-rings');
+  const slider = document.getElementById('freq-slider') as HTMLInputElement | null;
+  const freqDisplay = document.getElementById('freq-display');
+  const freqTypeLabel = document.getElementById('freq-type-label');
+  const timerBadge = document.getElementById('timer-badge');
+  const timerCountdown = document.getElementById('timer-countdown');
+  const cycleToast = document.getElementById('cycle-toast');
+
+  const modeWater = document.getElementById('mode-water');
+  const modeDust = document.getElementById('mode-dust');
+
+  const chanBoth = document.getElementById('chan-both');
+  const chanBottom = document.getElementById('chan-bottom');
+  const chanTop = document.getElementById('chan-top');
+
+  const freqMinLabel = document.getElementById('freq-min-label');
+  const freqMidLabel = document.getElementById('freq-mid-label');
+  const freqMaxLabel = document.getElementById('freq-max-label');
+
+  if (trigger && triggerIcon && triggerLabel && pulseRings && slider && freqDisplay) {
+    const defaultWaterFreq = Number(slider.value) || 165;
+    let currentFreq = defaultWaterFreq;
+    let currentMode: 'water' | 'dust' = 'water';
+    let currentPan = 0;
+    let countdownInterval: any = null;
+    let vibrationInterval: any = null;
+    let wakeLock: any = null;
+    let timeLeft = 60;
+
+    // Screen Wake Lock Handler
+    const requestWakeLock = async () => {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await (navigator as any).wakeLock.request('screen');
+        }
+      } catch {
+        // Safe failover if device blocks screen lock
+      }
+    };
+
+    const releaseWakeLock = async () => {
+      if (wakeLock) {
+        try {
+          await wakeLock.release();
+        } catch {}
+        wakeLock = null;
+      }
+    };
+
+    // Mode-specific range boundaries
+    const setModeRanges = (mode: 'water' | 'dust') => {
+      if (mode === 'water') {
+        currentMode = 'water';
+        slider.min = '130';
+        slider.max = '220';
+        slider.value = String(defaultWaterFreq);
+        currentFreq = defaultWaterFreq;
+        freqDisplay.textContent = String(defaultWaterFreq);
+
+        if (freqTypeLabel) freqTypeLabel.textContent = 'Target Frequency (Water Expulsion)';
+        if (freqMinLabel) freqMinLabel.textContent = '130 Hz (Deep Bass)';
+        if (freqMidLabel) freqMidLabel.textContent = '165 Hz (Optimal Eject)';
+        if (freqMaxLabel) freqMaxLabel.textContent = '220 Hz (High Ingress)';
+
+        if (modeWater) modeWater.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 bg-sky-500 text-slate-950 shadow-sm cursor-pointer';
+        if (modeDust) modeDust.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5 cursor-pointer';
+      } else {
+        currentMode = 'dust';
+        slider.min = '250';
+        slider.max = '450';
+        slider.value = '350';
+        currentFreq = 350;
+        freqDisplay.textContent = '350';
+
+        if (freqTypeLabel) freqTypeLabel.textContent = 'Target Frequency (Dust Vibration)';
+        if (freqMinLabel) freqMinLabel.textContent = '250 Hz (Acoustic Shake)';
+        if (freqMidLabel) freqMidLabel.textContent = '350 Hz (Micro-Mesh)';
+        if (freqMaxLabel) freqMaxLabel.textContent = '450 Hz (Fine Particulate)';
+
+        if (modeDust) modeDust.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 bg-amber-400 text-slate-950 shadow-sm cursor-pointer';
+        if (modeWater) modeWater.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5 cursor-pointer';
+      }
+
+      if (cleanerEngine.getStatus()) {
+        cleanerEngine.setFrequency(currentFreq);
+      }
+    };
+
+    if (modeWater && modeDust) {
+      modeWater.addEventListener('click', () => setModeRanges('water'));
+      modeDust.addEventListener('click', () => setModeRanges('dust'));
+    }
+
+    // Channel Balancer Listeners
+    const setActiveChannel = (pan: number, activeBtn: HTMLElement | null) => {
+      currentPan = pan;
+      [chanBoth, chanBottom, chanTop].forEach(btn => {
+        if (btn) btn.className = 'px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-slate-200 transition cursor-pointer';
+      });
+      if (activeBtn) {
+        activeBtn.className = 'px-2.5 py-1 rounded-md font-semibold bg-slate-800 text-sky-400 transition cursor-pointer';
+      }
+      if (cleanerEngine.getStatus()) {
+        cleanerEngine.setPan(pan);
+      }
+    };
+
+    chanBoth?.addEventListener('click', () => setActiveChannel(0, chanBoth));
+    chanBottom?.addEventListener('click', () => setActiveChannel(1, chanBottom));
+    chanTop?.addEventListener('click', () => setActiveChannel(-1, chanTop));
+
+    const stopEngineUI = async (completedNaturally = false) => {
+      await cleanerEngine.stop();
+      await releaseWakeLock();
+
+      triggerIcon.textContent = '🔊';
+      triggerLabel.textContent = 'Clean Speaker';
+      pulseRings.classList.add('opacity-0');
+      trigger.classList.remove('from-rose-600', 'to-rose-400', 'shadow-rose-500/30');
+      trigger.classList.add('from-sky-600', 'to-sky-400', 'shadow-sky-500/30');
+
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      if (vibrationInterval) {
+        clearInterval(vibrationInterval);
+        vibrationInterval = null;
+      }
+
+      if ('vibrate' in navigator) {
+        navigator.vibrate(0);
+      }
+
+      if (timerBadge) {
+        timerBadge.style.display = 'none';
+      }
+
+      if (completedNaturally && cycleToast) {
+        cycleToast.textContent = currentMode === 'water' 
+          ? '✨ 60s Water Cycle Complete! Pat speaker dry with a microfiber cloth.'
+          : '✨ 60s Dust Shake Complete! Blow loose particles out of the mesh.';
+        cycleToast.style.display = 'block';
+        setTimeout(() => {
+          cycleToast.style.display = 'none';
+        }, 5000);
+      }
+    };
+
+    trigger.addEventListener('click', async () => {
+      const isRunning = cleanerEngine.getStatus();
+
+      if (isRunning) {
+        await stopEngineUI(false);
+      } else {
+        if (cycleToast) cycleToast.style.display = 'none';
+
+        await requestWakeLock();
+        await cleanerEngine.start({ frequency: currentFreq, type: 'sine', volume: 0.9, pan: currentPan });
+        triggerIcon.textContent = '⏹️';
+        triggerLabel.textContent = 'Stop Tone';
+        pulseRings.classList.remove('opacity-0');
+        trigger.classList.remove('from-sky-600', 'to-sky-400', 'shadow-sky-500/30');
+        trigger.classList.add('from-rose-600', 'to-rose-400', 'shadow-rose-500/30');
+
+        timeLeft = 60;
+        if (timerBadge && timerCountdown) {
+          timerBadge.style.display = 'inline-flex';
+          timerCountdown.textContent = '01:00';
+
+          countdownInterval = setInterval(async () => {
+            timeLeft -= 1;
+            const secs = timeLeft < 10 ? `0${timeLeft}` : `${timeLeft}`;
+            timerCountdown.textContent = `00:${secs}`;
+
+            if (timeLeft <= 0) {
+              await stopEngineUI(true);
+            }
+          }, 1000);
+        }
+
+        if ('vibrate' in navigator) {
+          navigator.vibrate([200, 100, 200, 100, 400]);
+          vibrationInterval = setInterval(() => {
+            if (cleanerEngine.getStatus()) {
+              navigator.vibrate([200, 100, 200, 100, 400]);
+            }
+          }, 1500);
+        }
+      }
+    });
+
+    slider.addEventListener('input', (e) => {
+      const val = Number((e.target as HTMLInputElement).value);
+      currentFreq = val;
+      freqDisplay.textContent = String(val);
+      cleanerEngine.setFrequency(val);
+    });
+  }
+</script>
