@@ -8,7 +8,8 @@ interface Props {
 }
 
 const { 
-  canonicalUrl = 'https://speaker-cleaner-astro.pages.dev',
+  // 1. Sirf default fallback domain update kiya hai live subdomain ke mutabiq
+  canonicalUrl = 'https://speaker.thematrixlab.me',
   name = 'ClearWave Speaker Cleaner',
   description = 'Acoustic sound wave frequency generator to eject water and dislodge dust from mobile speakers.'
 } = Astro.props;
@@ -22,6 +23,12 @@ const schema = {
   applicationSubCategory: 'Speaker Cleaner & Water Ejector',
   operatingSystem: 'iOS, Android, macOS, Windows',
   browserRequirements: 'Requires HTML5 Web Audio API support',
+  // 2. Sirf ye Free tool ka trigger add kiya hai rich snippet ke liye
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD'
+  },
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.8',

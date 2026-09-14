@@ -9,7 +9,9 @@ export interface MetaProps {
 const DEFAULT_SITE_NAME = 'ClearWave Speaker Cleaner';
 const DEFAULT_TITLE = 'Fix My Speakers & Eject Water | ClearWave Acoustic Tool';
 const DEFAULT_DESCRIPTION = 'Eject trapped water and dust from smartphone speakers using scientific sound waves and resonant kinetic pulses.';
-const DEFAULT_SITE_URL = 'https://speaker-cleaner-astro.pages.dev';
+
+// SIRF YEH LINE UPDATE HUI HAI:
+const DEFAULT_SITE_URL = 'https://speaker.thematrixlab.me';
 
 export function createSEO(props: MetaProps = {}) {
   const siteUrl = (import.meta.env.PUBLIC_SITE_URL || DEFAULT_SITE_URL).replace(/\/$/, '');

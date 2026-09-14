@@ -5,7 +5,6 @@ import AudioEngine from '../components/core/AudioEngine.astro';
 import FrequencyMeter from '../components/core/FrequencyMeter.astro';
 import StepGuide from '../components/core/StepGuide.astro';
 import FaqSchema from '../components/seo/FaqSchema.astro';
-import SoftwareSchema from '../components/seo/SoftwareSchema.astro';
 import type { MetaProps } from '../lib/seo/meta';
 import type { FAQItem } from '../lib/seo/schema';
 
@@ -102,8 +101,4 @@ const { seo, breadcrumbs, device, faqs } = Astro.props;
 
   <!-- Schema injections -->
   {faqs && faqs.length > 0 && <FaqSchema faqs={faqs} />}
-  <SoftwareSchema 
-    name={device ? `ClearWave Water Ejector for ${device.name}` : undefined}
-    description={device ? `Acoustic frequency water ejection for ${device.name}` : undefined}
-  />
 </BaseLayout>
