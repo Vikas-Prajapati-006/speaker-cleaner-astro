@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  site: 'https://speaker-cleaner-astro.pages.dev',
+  site: 'https://speaker.thematrixlab.me',
   integrations: [
     tailwind()
   ],

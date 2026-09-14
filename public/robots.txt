@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://speaker-cleaner-astro.pages.dev/sitemap.xml
+Sitemap: https://speaker.thematrixlab.me/sitemap.xml

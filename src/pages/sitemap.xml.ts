@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
-  const baseUrl = site ? site.toString().replace(/\/$/, '') : 'https://speaker-cleaner-astro.pages.dev';
+  const baseUrl = site ? site.toString().replace(/\/$/, '') : 'https://speaker.thematrixlab.me';
 
   // Static core routes
   const staticPages = [
