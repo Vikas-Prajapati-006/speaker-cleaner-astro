@@ -23,6 +23,16 @@ const webAppSchema = generateWebAppSchema(seo.canonical);
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0ea5e9" />
 
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G9S22C5T9V"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-G9S22C5T9V');
+    </script>
+
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />
     <link rel="canonical" href={seo.canonical} />
